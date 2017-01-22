@@ -1,0 +1,14 @@
+HTTP/1.1 415 application/x-www-form-urlencoded not supported. Please use multipart/form-data.
+Date: Sun, 22 Jan 2017 15:32:41 GMT
+Accept-Encoding: gzip
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: content-type
+Cache-Control: must-revalidate,no-cache,no-store
+Content-Type: text/html; charset=ISO-8859-1
+Content-Length: 349
+Server: Jetty(9.2.9.v20150224)
+Strict-Transport-Security: max-age=15552015; preload
+Public-Key-Pins: pin-sha256="cN0QSpPIkuwpT6iP2YjEo1bEwGpH/yiUn6yhdy+HNto="; pin-sha256="WGJkyYjx1QMdMe0UqlyOKXtydPDVrk7sl2fV+nNm1r4="; pin-sha256="LrKdTxZLRTvyHM4/atX2nquX9BeHRZMCxg3cf4rhc2I="; max-age=864000
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+
