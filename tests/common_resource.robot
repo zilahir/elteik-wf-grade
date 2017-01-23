@@ -9,6 +9,7 @@ Library           String
 Library           SSHLibrary
 Library           Collections
 Library           XML
+Library           HttpLibrary.HTTP
 
 Resource                     variables.robot
 
@@ -30,10 +31,10 @@ Validate One Individual Page
   ${Length}=                 Get Length  ${ListOfPages}
   Log                        ${Length}
   : FOR                      ${i}  IN RANGE  0  ${Length}
-  \                           Log  ${ListOfPages[${i}]}
-  #\                          ${Output}=  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${i} https://validator.w3.org/nu/?out=xml
-  #\                          Create File  result${i}.xml  content=${Output}  encoding=UTF-8
-  #\                          ${Messages}  XML.Element Should Not Exist  ${Output}  error  A következő oldal nem valid:
+  #\                           Log  ${ListOfPages[${i}]}
+  \                          ${Output}=  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${ListOfPages[${i}]} https://validator.w3.org/nu/?out=xml
+  \                          Create File  result${i}.xml  content=${Output}  encoding=UTF-8
+  \                          ${Messages}  XML.Element Should Not Exist  ${Output}  error  A következő oldal nem valid: ${ListOfPages[${i}]}
   #[Return]                   ${Output}
 
 Get All Subpages
@@ -46,5 +47,6 @@ Get All Subpages
    #${TestResult}=             Selenium2Library.Get Element Attribute  ${MenuContainer}[1]/a@href
    : FOR                      ${i}  IN RANGE  1  ${NumberOfMenuItems}
    \                          ${SubPages}=  Selenium2Library.Get Element Attribute  ${MenuContainer}[${i}]/a@href
+   \                          Log  ${SubPages}  level=WARN
    \                          Append To List    ${ListOfPages}    ${SubPages}
    [Return]                   ${ListOfPages}
