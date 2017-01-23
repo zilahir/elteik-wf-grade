@@ -19,6 +19,14 @@ ${BROWSER}=       phantomjs
 
 *** Keywords ***
 
+Validate CSS File
+   [Arguments]                 ${File}
+   ${Output}=                  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${File} https://validator.w3.org/nu/?out=xml
+   Create File                 css.xml  content=${Output}  encoding=UTF-8
+   ${TestResult}               Run Keyword And Ignore Error  XML.Element Should Not Exist  ${Output}  error  A következő oldal nem valid: ${File}
+   Log                         Validation the following page: ${File} ${TestResult[0]}  level=WARN
+
+
 Open Browser And Navigate To Site
    [Documentation]             Opens the desired browser with eir page, and logs in
    [Arguments]                 ${Url}
@@ -34,8 +42,8 @@ Validate One Individual Page
   #\                           Log  ${ListOfPages[${i}]}
   \                          ${Output}=  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${STUDENT}/${ListOfPages[${i}]} https://validator.w3.org/nu/?out=xml
   \                          Create File  result${i}.xml  content=${Output}  encoding=UTF-8
-  \                          ${Messages}  XML.Element Should Not Exist  ${Output}  error  A következő oldal nem valid: ${ListOfPages[${i}]}
-  \                          Log  Validating the following page: ${ListOfPages[${i}]}: OK  level=WARN
+  \                          ${TestResult}  Run Keyword And Ignore Error  XML.Element Should Not Exist  ${Output}  error  A következő oldal nem valid: ${ListOfPages[${i}]}
+  \                          Log  Validation the following page: ${ListOfPages[${i}]} ${TestResult[0]}  level=WARN
   #[Return]                   ${Output}
 
 Get All Subpages
