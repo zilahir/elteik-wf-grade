@@ -29,10 +29,11 @@ Validate One Individual Page
   [Arguments]                ${ListOfPages}
   ${Length}=                 Get Length  ${ListOfPages}
   Log                        ${Length}
-  : FOR                      ${i}  IN RANGE  1  ${Length}
-  \                          ${Output}=  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${i} https://validator.w3.org/nu/?out=xml
-  \                          Create File  result${i}.xml  content=${Output}  encoding=UTF-8
-  \                          ${Messages}  XML.Element Should Not Exist  ${Output}  error  A feltöltött oldal nem valid!
+  : FOR                      ${i}  IN RANGE  0  ${Length}
+  \                           Log  ${ListOfPages[${i}]}
+  #\                          ${Output}=  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${i} https://validator.w3.org/nu/?out=xml
+  #\                          Create File  result${i}.xml  content=${Output}  encoding=UTF-8
+  #\                          ${Messages}  XML.Element Should Not Exist  ${Output}  error  A következő oldal nem valid:
   #[Return]                   ${Output}
 
 Get All Subpages
