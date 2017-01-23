@@ -26,8 +26,8 @@ Open Browser And Navigate To Site
    Capture Page Screenshot
 
 Validate One Individual Page
-  [Arguments]                ${Student}
-  ${Output}=                 Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @validate_html.html https://validator.w3.org/nu/?out=xml
+  [Arguments]                ${Page}
+  ${Output}=                 Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${Page} https://validator.w3.org/nu/?out=xml
   Create File                result.xml  content=${Output}  encoding=UTF-8
   ${Messages}                XML.Element Should Not Exist  ${Output}  error  A feltöltött oldal nem valid!
   [Return]                   ${Output}
@@ -35,4 +35,10 @@ Validate One Individual Page
 Get All Subpages
    [Arguments]              ${Student}
    Open Browser And Navigate To Site  ${Student}/index.html
-   ${NumberOfMenuItems}=            Get Matching Xpath Count  ${MenuContainer}
+   ${NumberOfMenuItems}=      Get Matching Xpath Count  ${MenuContainer}
+   ${ListOfPages}=            Create List
+   #${TestResult}=             Selenium2Library.Get Element Attribute  ${MenuContainer}[1]/a@href
+   : FOR                      ${i}  IN RANGE  1  ${NumberOfMenuItems}
+   \                          ${SubPages}=  Selenium2Library.Get Element Attribute  ${MenuContainer}[${i}]/a@href
+   \                          Append To List    ${ListOfPages}    ${SubPages}
+   [Return]                   ${ListOfPages}
