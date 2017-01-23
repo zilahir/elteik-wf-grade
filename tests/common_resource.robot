@@ -32,9 +32,10 @@ Validate One Individual Page
   Log                        ${Length}
   : FOR                      ${i}  IN RANGE  0  ${Length}
   #\                           Log  ${ListOfPages[${i}]}
-  \                          ${Output}=  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${ListOfPages[${i}]} https://validator.w3.org/nu/?out=xml
+  \                          ${Output}=  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${STUDENT}/${ListOfPages[${i}]} https://validator.w3.org/nu/?out=xml
   \                          Create File  result${i}.xml  content=${Output}  encoding=UTF-8
   \                          ${Messages}  XML.Element Should Not Exist  ${Output}  error  A következő oldal nem valid: ${ListOfPages[${i}]}
+  \                          Log  Validating the following page: ${ListOfPages[${i}]}: OK  level=WARN
   #[Return]                   ${Output}
 
 Get All Subpages
@@ -47,6 +48,7 @@ Get All Subpages
    #${TestResult}=             Selenium2Library.Get Element Attribute  ${MenuContainer}[1]/a@href
    : FOR                      ${i}  IN RANGE  1  ${NumberOfMenuItems}
    \                          ${SubPages}=  Selenium2Library.Get Element Attribute  ${MenuContainer}[${i}]/a@href
-   \                          Log  ${SubPages}  level=WARN
-   \                          Append To List    ${ListOfPages}    ${SubPages}
+   \                          ${First}  ${Last}=  Split String From Right  ${SubPages}  /  1
+   \                          Append To List    ${ListOfPages}    ${Last}
+   #\                          Log  ${Last}  level=WARN
    [Return]                   ${ListOfPages}
