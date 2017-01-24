@@ -30,13 +30,16 @@ Check If Tables Are Properly Used
     \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
     \                          ${CurrentCountDetails}  Get Count  ${CurrentFile}  <details
     \                          ${CurrentCountSummary}  Get Count  ${CurrentFile}  <summary
+    \                          ${CurrentCountCaption}  Get Count  ${CurrentFile}  <caption
     \                          ${ResultDetails}=  Evaluate    ${ResultDetails}+${CurrentCountDetails}
     \                          ${ResultSummary}=  Evaluate    ${ResultSummary}+${CurrentCountSummary}
-    \                          ${ElementText}=  Get Element Text    ${CurrentFile}
+    \                          ${ResultCaption}=  Evaluate    ${ResultCaption}+${CurrentCountCaption}
     ${IsDetailsTagVisibleResult}=  Run Keyword And Ignore Error  Should Be True    ${ResultDetails}>0
     ${IsSummaryTagVisibleResult}=  Run Keyword And Ignore Error  Should Be True    ${ResultSummary}>0
-    Log                        Is the page has at least 1 caption tag: ${IsDetailsTagVisibleResult[0]}  level=WARN
+    ${IsCaptionTagVisibleResult}=  Run Keyword And Ignore Error  Should Be True    ${ResultCaption}>0
+    Log                        Is the page has at least 1 details tag: ${IsDetailsTagVisibleResult[0]}  level=WARN
     Log                        Is the page has at least 1 summary tag: ${IsSummaryTagVisibleResult[0]}  level=WARN
+    Log                        Is the page has at least 1 caption tag: ${IsCaptionTagVisibleResult[0]}  level=WARN
 
 
 Check For At Least For Minimum Images
