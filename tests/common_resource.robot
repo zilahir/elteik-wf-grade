@@ -29,7 +29,8 @@ Check Pages Title Tag
     #\                           Log  ${ListOfPages[${i}]}  level=WARN
     \                          ${PageTitle}=  Get Title
     \                          Should Not Be Empty  ${PageTitle}
-    \                          Should Contain    ${PageTitle}  *-*
+    \                          ${PageHaseCorrectTitles}=  Run Keyword And Ignore Error  Should Match  ${PageTitle}  *-*
+    Log                        Is the page has correct <title> tags: ${PageHaseCorrectTitles[0]}  level=WARN
 
 
 Check Html 5 Tags
