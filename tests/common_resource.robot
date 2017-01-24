@@ -26,8 +26,8 @@ Check If Page Contains Background Image
    #${Length}=                 Convert To Integer    ${Length}
    : FOR                      ${i}  IN RANGE  0  ${Length}
    #\                          Log  ${CssFiles[${i}]}  level=WARN
-   \                          ${CurrentFile}=  OperatingSystem.Get File ${CssFiles[${i}]}
-   \                          Should Match Regexp    ${CurrentFile}    ${HasBgImagePattern}
+   \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/stye/${CssFiles[${i}]}
+   \                          BuiltIn.Should Match  ${CurrentFile}  *url(*.png)*
 
 Validate CSS File
    [Arguments]                 ${File}
