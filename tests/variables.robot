@@ -3,6 +3,7 @@
 *** Variables ***
 
 ${MenuContainer}               //nav/ul/li
-${HasBgImagePattern}            
+${HasBgImagePattern}           *url(*.png)*
+${ImgHtmlTag}                  //img
 
 *** Keywords ***

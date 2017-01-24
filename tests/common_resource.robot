@@ -20,7 +20,16 @@ ${BROWSER}=       phantomjs
 *** Keywords ***
 
 Check For At Least For Minimum Images
-    [Arguments]                ${Student}
+    [Arguments]                ${ListOfPages}
+    ${Length}=                 Get Length  ${ListOfPages}
+    ${Result}=                 Set Variable    0
+    Log                        ${Length}
+    : FOR                      ${i}  IN RANGE  0  ${Length}
+    #\                           Log  ${ListOfPages[${i}]}  level=WARN
+    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
+    \                          ${CurrentCount}  Get Count  ${CurrentFile}  <img
+    \                          ${Result}=  Evaluate    ${Result}+${CurrentCount}
+    Log  ${Result}  level=WARN
 
 
 Check If Page Contains Background Image
@@ -31,7 +40,7 @@ Check If Page Contains Background Image
    : FOR                      ${i}  IN RANGE  0  ${Length}
    #\                          Log  ${CssFiles[${i}]}  level=WARN
    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/style/${CssFiles[${i}]}
-   \                          ${TestResult}  Run Keyword And Ignore Error  BuiltIn.Should Match  ${CurrentFile}  *url(*.png)*
+   \                          ${TestResult}  Run Keyword And Ignore Error  BuiltIn.Should Match  ${CurrentFile}  ${HasBgImagePattern}
    \                          Log  Check If Page Contains Background Image: ${CssFiles[${i}]} ${TestResult[0]}  level=WARN
 
 Validate CSS File
