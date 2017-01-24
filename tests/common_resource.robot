@@ -19,6 +19,67 @@ ${BROWSER}=       phantomjs
 
 *** Keywords ***
 
+Check If The Page Has At Least 3 External Links
+    [Arguments]                ${ListOfPages}
+    ${Length}=                 Get Length  ${ListOfPages}
+    ${ResultExternalLinks1}=    Set Variable  0
+    ${ResultExternalLinks2}=    Set Variable  0
+    ${ResultExternalLinks}=    Set Variable  0
+    : FOR                      ${i}  IN RANGE  0  ${Length}
+    #\                           Log  ${ListOfPages[${i}]}  level=WARN
+    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
+    \                          ${CurrentCountExternalLinks1}  Get Count  ${CurrentFile}  http://
+    \                          ${CurrentCountExternalLinks2}  Get Count  ${CurrentFile}  https://
+    \                          ${ResultExternalLinks1}=  Evaluate    ${ResultExternalLinks1}+${CurrentCountExternalLinks1}
+    \                          ${ResultExternalLinks2}=  Evaluate    ${ResultExternalLinks2}+${CurrentCountExternalLinks2}
+    \                          ${ResultExternalLinks}=  Evaluate    ${ResultExternalLinks1}+${ResultExternalLinks2}
+    ${IsThereAtLeastThreeExternalLink}=  Run Keyword And Ignore Error  Should Be True    ${ResultExternalLinks}>2
+    Log                        Is the page has at least 3 external links: ${IsThereAtLeastThreeExternalLink[0]}  level=WARN
+
+
+Check If Submit Form Is Properly Used
+    [Arguments]                ${ListOfPages}
+    ${Length}=                 Get Length  ${ListOfPages}
+    ${ResultForms}=             Set Variable  0
+    ${ResultInputs}=            Set Variable  0
+    ${ResultOptions}=           Set Variable  0
+    ${ResultDropwdowns}=        Set Variable  0
+    ${ResultCheckBox}=          Set Variable  0
+    ${ResultSubmitButton}=      Set Variable  0
+    ${ResultResetButton}=      Set Variable  0
+    : FOR                      ${i}  IN RANGE  0  ${Length}
+    #\                           Log  ${ListOfPages[${i}]}  level=WARN
+    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
+    \                          ${CurrentCountForms}  Get Count  ${CurrentFile}  <form
+    \                          ${CurrentCountInputs}  Get Count  ${CurrentFile}  <input type="text"
+    \                          ${CurrentCountOptions}  Get Count  ${CurrentFile}  <input type="radio"
+    \                          ${CurrentCountDropwdown}  Get Count  ${CurrentFile}  <select
+    \                          ${CurrentCountCheckbox}  Get Count  ${CurrentFile}  <input type="checkbox"
+    \                          ${CurrentCountSubmitButton}  Get Count  ${CurrentFile}  type="submit"
+    \                          ${CurrentCountResetButton}  Get Count  ${CurrentFile}  type="reset"
+    \                          ${ResultForms}=  Evaluate    ${ResultForms}+${CurrentCountForms}
+    \                          ${ResultInputs}=  Evaluate    ${ResultInputs}+${CurrentCountInputs}
+    \                          ${ResultOptions}=  Evaluate    ${ResultOptions}+${CurrentCountOptions}
+    \                          ${ResultDropwdowns}=  Evaluate    ${ResultDropwdowns}+${CurrentCountDropwdown}
+    \                          ${ResultCheckBox}=  Evaluate    ${ResultCheckBox}+${CurrentCountCheckbox}
+    \                          ${ResultSubmitButton}=  Evaluate    ${ResultSubmitButton}+${CurrentCountSubmitButton}
+    \                          ${ResultResetButton}=  Evaluate    ${ResultResetButton}+${CurrentCountResetButton}
+    ${IsThereAtLeastOneForm}=  Run Keyword And Ignore Error  Should Be True    ${ResultForms}>0
+    ${IsThereAtLeastOneInput}=  Run Keyword And Ignore Error  Should Be True    ${ResultInputs}>0
+    ${IsThereAtLeastTwoOptions}=  Run Keyword And Ignore Error  Should Be True    ${ResultOptions}>1
+    ${IsThereAtLeastOneDropdown}=  Run Keyword And Ignore Error  Should Be True    ${ResultDropwdowns}>0
+    ${IsThereAtLeastOneCheckbox}=  Run Keyword And Ignore Error  Should Be True    ${ResultCheckBox}>0
+    ${IsThereAtLeastOneSubmitButton}=  Run Keyword And Ignore Error  Should Be True    ${ResultSubmitButton}>0
+    ${IsThereAtLeastOneResetButton}=  Run Keyword And Ignore Error  Should Be True    ${ResultResetButton}>0
+    Log                        Is the page has at least 1 form: ${IsThereAtLeastOneForm[0]}  level=WARN
+    Log                        Is the page has at least 1 input: ${IsThereAtLeastOneInput[0]}  level=WARN
+    Log                        Is the page has at least 2 options: ${IsThereAtLeastTwoOptions[0]}  level=WARN
+    Log                        Is the page has at least 1 dropdown: ${IsThereAtLeastOneDropdown[0]}  level=WARN
+    Log                        Is the page has at least 1 checknox: ${IsThereAtLeastOneCheckbox[0]}  level=WARN
+    Log                        Is the page has at least 1 submit button: ${IsThereAtLeastOneSubmitButton[0]}  level=WARN
+    Log                        Is the page has at least 1 reset button: ${IsThereAtLeastOneResetButton[0]}  level=WARN
+
+
 Check If Tables Are Properly Used
     [Arguments]                ${ListOfPages}
     ${Length}=                 Get Length  ${ListOfPages}
@@ -74,6 +135,8 @@ Validate CSS File
    ${Output}=                  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${File} https://validator.w3.org/nu/?out=xml
    Create File                 css.xml  content=${Output}  encoding=UTF-8
    ${TestResult}               Run Keyword And Ignore Error  XML.Element Should Not Exist  ${Output}  error  A következő oldal nem valid: ${File}
+   ${IsAllOk}=                 Set Variable If    '${TestResult[0]}'=='FAIL'  FAIL  ${EMPTY}
+   Set Test Variable           ${IsAllOk}    ${IsAllOk}
    Log                         Validation the following page: ${File} ${TestResult[0]}  level=WARN
 
 
@@ -92,9 +155,11 @@ Validate One Individual Page
   #\                           Log  ${ListOfPages[${i}]}
   \                          ${Output}=  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${STUDENT}/${ListOfPages[${i}]} https://validator.w3.org/nu/?out=xml
   \                          Create File  result${i}.xml  content=${Output}  encoding=UTF-8
-  \                          ${TestResult}  Run Keyword And Ignore Error  XML.Element Should Not Exist  ${Output}  error  A következő oldal nem valid: ${ListOfPages[${i}]}
+  \                          ${TestResult}  Run Keyword And Ignore Error  XML.Element Should Not Exist  ${Output}  error
+  \                          ${IsAllOk}=  Set Variable If    '${TestResult[0]}'=='FAIL'  FAIL  ${EMPTY}
   \                          Log  Validation the following page: ${ListOfPages[${i}]} ${TestResult[0]}  level=WARN
-  #[Return]                   ${Output}
+  Set Test Variable          ${IsAllOk}    ${IsAllOk}
+  [Return]                   ${IsAllOk}
 
 Get All Subpages
    [Arguments]              ${Student}
@@ -112,3 +177,7 @@ Get All Subpages
    \                          Append To List    ${ListOfPages}    ${Last}
    #\                          Log  ${Last}  level=WARN
    [Return]                   ${ListOfPages}
+
+Check If There Is Any Fails
+    [Arguments]               ${TestScopeVariable}
+    Should Be Empty           ${TestScopeVariable}  Az oldal nem felel meg minden szempontnak!

@@ -14,4 +14,7 @@ TEST1-Validating HTML Files
     Validate CSS File          ${STUDENT}/style/style.css
     Check For At Least For Minimum Images  ${AllPages}
     Check If Tables Are Properly Used  ${AllPages}
+    Check If Submit Form Is Properly Used  ${AllPages}
+    Check If The Page Has At Least 3 External Links  ${AllPages}
+    Check If There Is Any Fails    ${IsAllOk}
     [Teardown]                 Run Keywords    Close All Browsers
