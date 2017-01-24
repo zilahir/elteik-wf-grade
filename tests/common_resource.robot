@@ -19,6 +19,10 @@ ${BROWSER}=       phantomjs
 
 *** Keywords ***
 
+Check For At Least For Minimum Images
+    [Arguments]                ${Student}
+
+
 Check If Page Contains Background Image
    [Arguments]                ${Student}
    ${CssFiles}=               OperatingSystem.List Files In Directory    ${Student}/style/    *.css    absolute=False
