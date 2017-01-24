@@ -18,6 +18,19 @@ Resource                     variables.robot
 ${BROWSER}=       phantomjs
 
 *** Keywords ***
+Check Semating Coding
+    [Arguments]                ${ListOfPages}
+    ${Length}=                 Get Length  ${ListOfPages}
+
+Check Pages Title Tag
+    [Arguments]                ${ListOfPages}
+    ${Length}=                 Get Length  ${ListOfPages}
+    : FOR                      ${i}  IN RANGE  0  ${Length}
+    #\                           Log  ${ListOfPages[${i}]}  level=WARN
+    \                          ${PageTitle}=  Get Title
+    \                          Should Not Be Empty  ${PageTitle}
+    \                          Should Contain    ${PageTitle}  *-*
+
 
 Check Html 5 Tags
     [Arguments]                ${ListOfPages}
