@@ -16,5 +16,6 @@ TEST1-Validating HTML Files
     Check If Tables Are Properly Used  ${AllPages}
     Check If Submit Form Is Properly Used  ${AllPages}
     Check If The Page Has At Least 3 External Links  ${AllPages}
+    Check Html 5 Tags  ${AllPages}
     Check If There Is Any Fails    ${IsAllOk}
     [Teardown]                 Run Keywords    Close All Browsers

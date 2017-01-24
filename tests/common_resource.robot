@@ -19,6 +19,54 @@ ${BROWSER}=       phantomjs
 
 *** Keywords ***
 
+Check Html 5 Tags
+    [Arguments]                ${ListOfPages}
+    ${Length}=                 Get Length  ${ListOfPages}
+    ${ResultHeaderTag}=        Set Variable  0
+    ${ResultNavTag}=           Set Variable  0
+    ${ResultSectionTag}=       Set Variable  0
+    ${ResultArticleTag}=       Set Variable  0
+    ${ResultAsideTag}=         Set Variable  0
+    ${ResultFooterTag}=        Set Variable  0
+    ${ResultFigureTag}=        Set Variable  0
+    ${ResultVideoTag}=         Set Variable  0
+    : FOR                      ${i}  IN RANGE  0  ${Length}
+    #\                           Log  ${ListOfPages[${i}]}  level=WARN
+    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
+    \                          ${CurrentCountHeader}  Get Count  ${CurrentFile}  <header
+    \                          ${CurrentCountNav}  Get Count  ${CurrentFile}  <nav
+    \                          ${CurrentCountSection}  Get Count  ${CurrentFile}  <section
+    \                          ${CurrentCountArticle}  Get Count  ${CurrentFile}  <article
+    \                          ${CurrentCountAside}  Get Count  ${CurrentFile}  <asdie
+    \                          ${CurrentCountFooter}  Get Count  ${CurrentFile}  <footer
+    \                          ${CurrentCountFigure}  Get Count  ${CurrentFile}  <figure
+    \                          ${CurrentCountVideo}  Get Count  ${CurrentFile}  <video
+    \                          ${ResultHeaderTag}=  Evaluate    ${ResultHeaderTag}+${CurrentCountHeader}
+    \                          ${ResultNavTag}=  Evaluate    ${ResultNavTag}+${CurrentCountNav}
+    \                          ${ResultSectionTag}=  Evaluate    ${ResultSectionTag}+${CurrentCountSection}
+    \                          ${ResultArticleTag}=  Evaluate    ${ResultArticleTag}+${CurrentCountArticle}
+    \                          ${ResultAsideTag}=  Evaluate    ${ResultAsideTag}+${CurrentCountAside}
+    \                          ${ResultFooterTag}=  Evaluate    ${ResultFooterTag}+${CurrentCountFooter}
+    \                          ${ResultFigureTag}=  Evaluate    ${ResultFigureTag}+${CurrentCountFigure}
+    \                          ${ResultVideoTag}=  Evaluate    ${ResultVideoTag}+${CurrentCountVideo}
+    ${IsThereHeaderTag}=       Run Keyword And Ignore Error  Should Be True    ${ResultHeaderTag}>0
+    ${IsThereNavTag}=          Run Keyword And Ignore Error  Should Be True    ${ResultNavTag}>0
+    ${IsThereSectionTag}=      Run Keyword And Ignore Error  Should Be True    ${ResultSectionTag}>0
+    ${IsThereArticleTag}=      Run Keyword And Ignore Error  Should Be True    ${ResultArticleTag}>0
+    ${IsThereAsideTag}=        Run Keyword And Ignore Error  Should Be True    ${ResultAsideTag}>0
+    ${IsThereFooterTag}=       Run Keyword And Ignore Error  Should Be True    ${ResultFooterTag}>0
+    ${IsThereFigureTag}=       Run Keyword And Ignore Error  Should Be True    ${ResultFigureTag}>0
+    ${IsThereVideoTag}=        Run Keyword And Ignore Error  Should Be True    ${ResultVideoTag}>0
+    Log                        Is the page has <header> tag: ${IsThereHeaderTag[0]}  level=WARN
+    Log                        Is the page has <nav> tag: ${IsThereNavTag[0]}  level=WARN
+    Log                        Is the page has <section> tag: ${IsThereSectionTag[0]}  level=WARN
+    Log                        Is the page has <article> tag: ${IsThereArticleTag[0]}  level=WARN
+    Log                        Is the page has <aside> tag: ${IsThereAsideTag[0]}  level=WARN
+    Log                        Is the page has <footer> tag: ${IsThereFooterTag[0]}  level=WARN
+    Log                        Is the page has <figure> tag: ${IsThereFigureTag[0]}  level=WARN
+    Log                        Is the page has <video> tag: ${IsThereVideoTag[0]}  level=WARN
+
+
 Check If The Page Has At Least 3 External Links
     [Arguments]                ${ListOfPages}
     ${Length}=                 Get Length  ${ListOfPages}
