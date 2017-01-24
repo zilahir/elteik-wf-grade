@@ -26,8 +26,9 @@ Check If Page Contains Background Image
    #${Length}=                 Convert To Integer    ${Length}
    : FOR                      ${i}  IN RANGE  0  ${Length}
    #\                          Log  ${CssFiles[${i}]}  level=WARN
-   \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/stye/${CssFiles[${i}]}
-   \                          BuiltIn.Should Match  ${CurrentFile}  *url(*.png)*
+   \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/style/${CssFiles[${i}]}
+   \                          ${TestResult}  Run Keyword And Ignore Error  BuiltIn.Should Match  ${CurrentFile}  *url(*.png)*
+   \                          Log  Check If Page Contains Background Image: ${CssFiles[${i}]} ${TestResult[0]}  level=WARN
 
 Validate CSS File
    [Arguments]                 ${File}
