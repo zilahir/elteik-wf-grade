@@ -22,14 +22,21 @@ ${BROWSER}=       phantomjs
 Check If Tables Are Properly Used
     [Arguments]                ${ListOfPages}
     ${Length}=                 Get Length  ${ListOfPages}
-    ${Result}=                 Set Variable    0
+    ${ResultDetails}=          Set Variable    0
+    ${ResultSummary}=          Set Variable    0
+    ${ResultCaption}=          Set Variable    0
     : FOR                      ${i}  IN RANGE  0  ${Length}
     #\                           Log  ${ListOfPages[${i}]}  level=WARN
     \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
-    \                          ${CurrentCount}  Get Count  ${CurrentFile}  <details
-    \                          ${Result}=  Evaluate    ${Result}+${CurrentCount}
-    ${IsCaptionTagVisibleResult}=  Run Keyword And Ignore Error  Should Be True    ${Result}>0
-    Log                        Is the page has at least 1 caption tag: ${IsCaptionTagVisibleResult[0]}  level=WARN
+    \                          ${CurrentCountDetails}  Get Count  ${CurrentFile}  <details
+    \                          ${CurrentCountSummary}  Get Count  ${CurrentFile}  <summary
+    \                          ${ResultDetails}=  Evaluate    ${ResultDetails}+${CurrentCountDetails}
+    \                          ${ResultSummary}=  Evaluate    ${ResultSummary}+${CurrentCountSummary}
+    \                          ${ElementText}=  Get Element Text    ${CurrentFile}
+    ${IsDetailsTagVisibleResult}=  Run Keyword And Ignore Error  Should Be True    ${ResultDetails}>0
+    ${IsSummaryTagVisibleResult}=  Run Keyword And Ignore Error  Should Be True    ${ResultSummary}>0
+    Log                        Is the page has at least 1 caption tag: ${IsDetailsTagVisibleResult[0]}  level=WARN
+    Log                        Is the page has at least 1 summary tag: ${IsSummaryTagVisibleResult[0]}  level=WARN
 
 
 Check For At Least For Minimum Images
