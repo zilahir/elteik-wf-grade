@@ -10,5 +10,6 @@ TEST1-Validating HTML Files
     [Tags]                     owner-richard.zilahi  group=validating
     ${AllPages}=               Get All Subpages           ${STUDENT}
     Validate One Individual Page  ${AllPages}
+    Check If Page Contains Background Image  ${STUDENT}
     Validate CSS File          ${STUDENT}/style/style.css
     [Teardown]                 Run Keywords    Close All Browsers

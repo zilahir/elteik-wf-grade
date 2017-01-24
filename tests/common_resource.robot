@@ -19,6 +19,16 @@ ${BROWSER}=       phantomjs
 
 *** Keywords ***
 
+Check If Page Contains Background Image
+   [Arguments]                ${Student}
+   ${CssFiles}=               OperatingSystem.List Files In Directory    ${Student}/style/    *.css    absolute=False
+   ${Length}=                 Get Length  ${CssFiles}
+   #${Length}=                 Convert To Integer    ${Length}
+   : FOR                      ${i}  IN RANGE  0  ${Length}
+   #\                          Log  ${CssFiles[${i}]}  level=WARN
+   \                          ${CurrentFile}=  OperatingSystem.Get File ${CssFiles[${i}]}
+   \                          Should Match Regexp    ${CurrentFile}    ${HasBgImagePattern}
+
 Validate CSS File
    [Arguments]                 ${File}
    ${Output}=                  Run  curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary @${File} https://validator.w3.org/nu/?out=xml
@@ -51,6 +61,8 @@ Get All Subpages
    Open Browser And Navigate To Site  ${Student}/index.html
    ${NumberOfMenuItems}=      Get Matching Xpath Count  ${MenuContainer}
    ${NumberOfMenuItems}=      Convert To Integer    ${NumberOfMenuItems}
+   ${IsAtLeast4PagesStatus}=  Run Keyword And Ignore Error  Should Be True    ${NumberOfMenuItems}>4
+   Log                        Is the page has at least 4 pages: ${IsAtLeast4PagesStatus[0]}  level=WARN
    ${NumberOfMenuItems}       Set Variable  ${NumberOfMenuItems+1}
    ${ListOfPages}=            Create List
    #${TestResult}=             Selenium2Library.Get Element Attribute  ${MenuContainer}[1]/a@href
