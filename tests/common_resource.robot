@@ -243,3 +243,14 @@ Get All Subpages
 Check If There Is Any Fails
     [Arguments]               ${TestScopeVariable}
     Should Be Empty           ${TestScopeVariable}  Az oldal nem felel meg minden szempontnak!
+
+Check If CSS Has Proper Font Settings
+   [Arguments]                ${Student}
+   ${CssFiles}=               OperatingSystem.List Files In Directory    ${Student}/style/    *.css    absolute=False
+   ${Length}=                 Get Length  ${CssFiles}
+   #${Length}=                 Convert To Integer    ${Length}
+   : FOR                      ${i}  IN RANGE  0  ${Length}
+   #\                          Log  ${CssFiles[${i}]}  level=WARN
+   \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/style/${CssFiles[${i}]}
+   \                          ${TestResult}  Run Keyword And Ignore Error  BuiltIn.Should Match  ${CurrentFile}  ${HasBgImagePattern}
+   \                          Log  Check If Page Contains Background Image: ${CssFiles[${i}]} ${TestResult[0]}  level=WARN

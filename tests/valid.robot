@@ -19,4 +19,5 @@ TEST1-Validating HTML Files
     Check Html 5 Tags  ${AllPages}
     Check Pages Title Tag            ${AllPages}
     Check If There Is Any Fails    ${IsAllOk}
+    Check If CSS Has Proper Font Settings  ${AllPages}
     [Teardown]                 Run Keywords    Close All Browsers
