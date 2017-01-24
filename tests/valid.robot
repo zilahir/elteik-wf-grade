@@ -13,4 +13,5 @@ TEST1-Validating HTML Files
     Check If Page Contains Background Image  ${STUDENT}
     Validate CSS File          ${STUDENT}/style/style.css
     Check For At Least For Minimum Images  ${AllPages}
+    Check If Tables Are Properly Used  ${AllPages}
     [Teardown]                 Run Keywords    Close All Browsers

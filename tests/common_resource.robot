@@ -19,6 +19,19 @@ ${BROWSER}=       phantomjs
 
 *** Keywords ***
 
+Check If Tables Are Properly Used
+    [Arguments]                ${ListOfPages}
+    ${Length}=                 Get Length  ${ListOfPages}
+    ${Result}=                 Set Variable    0
+    : FOR                      ${i}  IN RANGE  0  ${Length}
+    #\                           Log  ${ListOfPages[${i}]}  level=WARN
+    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
+    \                          ${CurrentCount}  Get Count  ${CurrentFile}  <details
+    \                          ${Result}=  Evaluate    ${Result}+${CurrentCount}
+    ${IsCaptionTagVisibleResult}=  Run Keyword And Ignore Error  Should Be True    ${Result}>0
+    Log                        Is the page has at least 1 caption tag: ${IsCaptionTagVisibleResult[0]}  level=WARN
+
+
 Check For At Least For Minimum Images
     [Arguments]                ${ListOfPages}
     ${Length}=                 Get Length  ${ListOfPages}
@@ -29,7 +42,10 @@ Check For At Least For Minimum Images
     \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
     \                          ${CurrentCount}  Get Count  ${CurrentFile}  <img
     \                          ${Result}=  Evaluate    ${Result}+${CurrentCount}
-    Log  ${Result}  level=WARN
+    ${IsAtLeast5Images}=       Run Keyword And Ignore Error  Should Be True    ${Result}>5
+    Log                        Is the page has at least 5 images: ${IsAtLeast5Images[0]}  level=WARN
+
+    #Log  ${Result}  level=WARN
 
 
 Check If Page Contains Background Image
