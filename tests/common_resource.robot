@@ -252,5 +252,7 @@ Check If CSS Has Proper Font Settings
    : FOR                      ${i}  IN RANGE  0  ${Length}
    #\                          Log  ${CssFiles[${i}]}  level=WARN
    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/style/${CssFiles[${i}]}
-   \                          ${TestResult}  Run Keyword And Ignore Error  BuiltIn.Should Match  ${CurrentFile}  ${HasBgImagePattern}
-   \                          Log  Check If Page Contains Background Image: ${CssFiles[${i}]} ${TestResult[0]}  level=WARN
+   \                          ${Group1} =
+   \                          ...  BuiltIn.Should Match Regexp  ${CurrentFile}  ${CssFontFamilyRegexp}
+   #\                          Log  Check If Page Contains Background Image: ${CssFiles[${i}]} ${TestResult[0]}  level=WARN
+   \                          Log  ${Group1} level=WARN

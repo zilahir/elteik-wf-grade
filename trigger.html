@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>job trigger test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+      .trigger {
+        width: 200px;
+        height: 30px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        text-align: center;
+        vertical-align: center;
+        display: table-cell;
+      }
+      .trigger:hover {
+        cursor: pointer;
+        background-color: #ff0000;
+      }
+    </style>
+  </head>
+  <body>
+      <p class="trigger">
+        Trigger
+      </p>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $(".trigger").click(function (e) {
+        e.preventDefault();
+        //alert("clicked");
+        jQuery.ajax({
+            type: "POST", // HTTP method POST or GET
+            url: "http://wf-grader:d71b4c4eaf6db5aeae33b40d9bd58e96@192.168.1.134:8080/job/wf1-gradeing/build?token=b9l3nx3n2PGa077U7Vkc26Djr9097RdY", //Where to make Ajax calls
+            dataType:"html", // Data type, HTML, json etc.
+            success:function(response){
+                console.log(response);
+            },
+            error:function (xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+      });
+    });
+    </script>
+  </body>
+</html>
