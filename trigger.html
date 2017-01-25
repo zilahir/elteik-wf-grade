@@ -5,7 +5,7 @@
     <title>job trigger test</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <style>
-      .trigger {
+      .trigger, .getlastbuild {
         width: 200px;
         height: 30px;
         background-color: #f9f9f9;
@@ -14,15 +14,25 @@
         vertical-align: center;
         display: table-cell;
       }
-      .trigger:hover {
+      .trigger:hover, .getlastbuild:hover {
         cursor: pointer;
         background-color: #ff0000;
+      }
+      .console {
+        width: 500px;
+        height: 100px;
       }
     </style>
   </head>
   <body>
       <p class="trigger">
         Trigger
+      </p>
+      <p class="getlastbuild">
+        Get last build data
+      </p>
+      <p class="console">
+
       </p>
     <script type="text/javascript">
     $(document).ready(function() {
@@ -41,6 +51,25 @@
             }
         });
       });
+
+      // getting back the last result
+      $(".getlastbuild").click(function (e) {
+        e.preventDefault();
+        //alert("clicked");
+        jQuery.ajax({
+            type: "POST", // HTTP method POST or GET
+            url: "http://192.168.1.134:8080/job/wf1-gradeing/lastBuild/consoleText", //Where to make Ajax calls
+            dataType:"html", // Data type, HTML, json etc.
+            success:function(response){
+                console.log(response);
+                $(".getlastbuild").append(response);
+            },
+            error:function (xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+      });
+
     });
     </script>
   </body>
