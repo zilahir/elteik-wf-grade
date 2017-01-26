@@ -9,3 +9,4 @@ tests/result*.xml
 validate_html.html
 bower_components/
 bower_components/*
+trigger.html
