@@ -275,4 +275,4 @@ Verify There Is No Frame On The Site
     \                          ${ResultFrames}=  Evaluate    ${ResultFrames}+${CurrentCountFrames}
     ${ResultFrames}=           Convert To Integer    ${ResultFrames}
     ${IsThePageContainsFrames}=  Run Keyword And Ignore Error  Should Be Equal As Integers  ${ResultFrames}  0
-    Log                        Is the page contains frames: ${IsThePageContainsFrames[0]}  level=WARN
+    Log                        Verify the page does not contain frames: ${IsThePageContainsFrames[0]}  level=WARN
