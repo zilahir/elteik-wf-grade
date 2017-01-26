@@ -7,4 +7,5 @@ tests/BI7TW8
 tests/selenium*.png
 tests/result*.xml
 validate_html.html
-
+bower_components/
+bower_components/*
