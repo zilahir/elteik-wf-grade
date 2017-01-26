@@ -254,5 +254,6 @@ Check If CSS Has Proper Font Settings
    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/style/${CssFiles[${i}]}
    \                          ${Group1} =
    \                          ...  BuiltIn.Should Match Regexp  ${CurrentFile}  ${CssFontFamilyRegexp}
+   \                          ...  BuiltIn.Should Match Regexp  ${CurrentFile}  ${CssFontSizeRegexp}
    #\                          Log  Check If Page Contains Background Image: ${CssFiles[${i}]} ${TestResult[0]}  level=WARN
    \                          Log  ${Group1} level=WARN
