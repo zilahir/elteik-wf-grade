@@ -19,32 +19,64 @@
         background-color: #ff0000;
       }
       .console {
-        width: 500px;
-        height: 100px;
+        padding: 15px;
+        font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+        background-color: #ddd;
       }
+      .hidden {
+        display: none;
+      }
+      .consolecontainer {
+
+        }
+      .loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
+
     </style>
   </head>
   <body>
       <p class="trigger">
-        Trigger
+        Trigger testcase
       </p>
       <p class="getlastbuild">
         Get last build data
       </p>
-      <p class="console">
+      <div id="loader" class="loader hidden"></div>
+      <div class="consolecontainer">
+        <p class="console">
 
-      </p>
+        </p>
+      </div>
     <script type="text/javascript">
     $(document).ready(function() {
       $(".trigger").click(function (e) {
         e.preventDefault();
         //alert("clicked");
         jQuery.ajax({
-            type: "POST", // HTTP method POST or GET
+            type: "POST",
             url: "http://wf-grader:d71b4c4eaf6db5aeae33b40d9bd58e96@192.168.1.134:8080/job/wf1-gradeing/build?token=b9l3nx3n2PGa077U7Vkc26Djr9097RdY", //Where to make Ajax calls
-            dataType:"html", // Data type, HTML, json etc.
+            dataType:"html",
             success:function(response){
-                console.log(response);
+                //build has started successfully
+				getLastBuild();
             },
             error:function (xhr, ajaxOptions, thrownError){
                 alert(thrownError);
@@ -52,23 +84,48 @@
         });
       });
 
-      // getting back the last result
-      $(".getlastbuild").click(function (e) {
-        e.preventDefault();
-        //alert("clicked");
+      function getConsoleText () {
+
         jQuery.ajax({
-            type: "POST", // HTTP method POST or GET
-            url: "http://192.168.1.134:8080/job/wf1-gradeing/lastBuild/consoleText", //Where to make Ajax calls
-            dataType:"html", // Data type, HTML, json etc.
+            type: "POST",
+            url: "http://192.168.1.134:8080/job/wf1-gradeing/lastBuild/consoleText",
+            dataType:"html",
             success:function(response){
+                $(".console").append(response);
                 console.log(response);
-                $(".getlastbuild").append(response);
+                $("#loader").addClass("hidden");
             },
             error:function (xhr, ajaxOptions, thrownError){
                 alert(thrownError);
             }
         });
+
+      }
+
+      // getting back the last result
+      $(".getlastbuild").click(function (e) {
+        getConsoleText();
       });
+
+
+      function getLastBuild () {
+        jQuery.ajax({
+            type: "POST",
+            url: "http://192.168.1.134:8080/job/wf1-gradeing/lastBuild/api/json?depth=1",
+            dataType:"json",
+            success:function(response){
+                if (response.building) {
+          $("#loader").removeClass("hidden");
+					setTimeout(getLastBuild, 5000);
+				} else {
+					getConsoleText();
+				}
+            },
+            error:function (xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+      }
 
     });
     </script>
