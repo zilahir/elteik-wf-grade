@@ -254,6 +254,25 @@ Check If CSS Has Proper Font Settings
    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/style/${CssFiles[${i}]}
    \                          ${Group1} =
    \                          ...  BuiltIn.Should Match Regexp  ${CurrentFile}  ${CssFontFamilyRegexp}
-   \                          ...  BuiltIn.Should Match Regexp  ${CurrentFile}  ${CssFontSizeRegexp}
+   \                          ${Group2} =
+   \                          ...  BuiltIn.Should Not Match Regexp  ${CurrentFile}  ${CssFontSizeRegexp}
    #\                          Log  Check If Page Contains Background Image: ${CssFiles[${i}]} ${TestResult[0]}  level=WARN
-   \                          Log  ${Group1} level=WARN
+   ${ResultFontSize}=          Set Variable If    '${Group2}'=='None'  PASS  FAIL
+   ${ResultFontFamilyLength}=  Get Length    ${Group1}
+   ${ResultFontFamily}=       Run Keyword And Ignore Error  Should Be True    '${ResultFontFamilyLength}'>1
+
+   Log                        Check If Page Has Proper font-size Declaration ${ResultFontSize}  level=WARN
+   Log                        Check If Page Has Proper font-family Declaration ${ResultFontFamily[0]}  level=WARN
+
+Verify There Is No Frame On The Site
+  [Arguments]                ${ListOfPages}
+  ${Length}=                 Get Length  ${ListOfPages}
+  ${ResultFrames}=          Set Variable    0
+    : FOR                      ${i}  IN RANGE  0  ${Length}
+    #\                           Log  ${ListOfPages[${i}]}  level=WARN
+    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
+    \                          ${CurrentCountFrames}  Get Count  ${CurrentFile}  <frame
+    \                          ${ResultFrames}=  Evaluate    ${ResultFrames}+${CurrentCountFrames}
+    ${ResultFrames}=           Convert To Integer    ${ResultFrames}
+    ${IsThePageContainsFrames}=  Run Keyword And Ignore Error  Should Be Equal As Integers  ${ResultFrames}  0
+    Log                        Is the page contains frames: ${IsThePageContainsFrames[0]}  level=WARN
