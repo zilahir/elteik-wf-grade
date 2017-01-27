@@ -295,10 +295,18 @@ Check If The Images Has Alt Attribues
     ${Length}=                 Get Length  ${ListOfPages}
     ${ResultFrames}=           Set Variable    0
     ${AllImageList}=           Create List
+    ${FinalResult}=            Create List
     : FOR                      ${i}  IN RANGE  0  ${Length}
     #\                           Log  ${ListOfPages[${i}]}  level=WARN
     \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
     \                          ${Group1}  ${Group2}=
     \                          ...  Run Keyword And Ignore Error  BuiltIn.Should Match Regexp  ${CurrentFile}  ${GetImagesXpath}
     \                          Append To List    ${AllImageList}    ${Group2}
-    Log                        ${AllImageList}
+    ${NumberOfImages}          Get Length    ${AllImageList}
+    : FOR                      ${i}  IN RANGE  0  ${NumberOfImages}
+    \                          Log  ${AllImageList[${i}]}
+    \                          ${Result}=  Run Keyword And Ignore Error  Should Match  ${AllImageList[${i}][0]}  *alt="*"*
+    \                          Run Keyword If  '${Result[0]}'=='FAIL'  Append To List  ${FinalResult}  FAIL
+    ${FinalResultCount}=       Get Length  ${FinalResult}
+    ${IsAllAltSet}=            Run Keyword And Ignore Error  Should Be True    '${FinalResultCount}'='0'
+    Log                        Is all images' alt attribute properly set ${IsAllAltSet[0]}  level=WARN
