@@ -19,8 +19,10 @@ TEST1-Validating HTML Files
     Check Html 5 Tags  ${AllPages}
     Check Pages Title Tag            ${AllPages}
     Check If CSS Has Proper Font Settings  ${STUDENT}
+
+    #CSS FILE
     Verify There Is No Frame On The Site  ${AllPages}
-    #Verify Visited and Unvisited Links Are Different  ${STUDENT}
-    
+    Verify Visited and Unvisited Links Are Different  ${STUDENT}
+
     Check If There Is Any Fails    ${IsAllOk}
     [Teardown]                 Run Keywords    Close All Browsers

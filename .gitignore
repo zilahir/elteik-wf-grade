@@ -1,3 +1,6 @@
+*.py
+*.pyc
+tree.sh
 log.html
 output.xml
 report.html

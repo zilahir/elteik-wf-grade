@@ -10,6 +10,7 @@ Library           SSHLibrary
 Library           Collections
 Library           XML
 Library           HttpLibrary.HTTP
+Library           color.py
 
 Resource                     variables.robot
 
@@ -285,10 +286,9 @@ Verify Visited and Unvisited Links Are Different
     : FOR                      ${i}  IN RANGE  0  ${Length}
     #\                          Log  ${CssFiles[${i}]}  level=WARN
     \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/style/${CssFiles[${i}]}
-    \                          ${Group1}  ${Group2}=
-    \                          ...  BuiltIn.Should Match Regexp  ${CurrentFile}  ${VisitedCssNode}
-    \                          ${Group3}  ${Group4}=
-    \                          ...  BuiltIn.Should Match Regexp  ${CurrentFile}  ${VisitedCssNode2}
+    \                          Color  ${Student}/style/${CssFiles[${i}]}
+    #\                          ${AreLinksAreDifferent}=  Run Keyword And Ignore Error  Color  ${CurrentFile}
+    #Log                        Verify Visited and Unvisited Links Are Different: ${AreLinksAreDifferent[0]}  level=WARN
 
 Check If The Images Has Alt Attribues
     [Arguments]                ${ListOfPages}
