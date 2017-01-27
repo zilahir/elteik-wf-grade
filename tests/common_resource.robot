@@ -173,7 +173,7 @@ Check For At Least For Minimum Images
     : FOR                      ${i}  IN RANGE  0  ${Length}
     #\                           Log  ${ListOfPages[${i}]}  level=WARN
     \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
-    \                          ${CurrentCount}  Get Count  ${CurrentFile} <img
+    \                          ${CurrentCount}  Get Count  ${CurrentFile}  <img
     \                          ${Result}=  Evaluate    ${Result}+${CurrentCount}
     ${IsAtLeast5Images}=       Run Keyword And Ignore Error  Should Be True    ${Result}>5
     Log                        Is the page has at least 5 images: ${IsAtLeast5Images[0]}  level=WARN
