@@ -265,9 +265,9 @@ Check If CSS Has Proper Font Settings
    Log                        Check If Page Has Proper font-family Declaration ${ResultFontFamily[0]}  level=WARN
 
 Verify There Is No Frame On The Site
-  [Arguments]                ${ListOfPages}
-  ${Length}=                 Get Length  ${ListOfPages}
-  ${ResultFrames}=          Set Variable    0
+    [Arguments]                ${ListOfPages}
+    ${Length}=                 Get Length  ${ListOfPages}
+    ${ResultFrames}=          Set Variable    0
     : FOR                      ${i}  IN RANGE  0  ${Length}
     #\                           Log  ${ListOfPages[${i}]}  level=WARN
     \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
@@ -276,3 +276,29 @@ Verify There Is No Frame On The Site
     ${ResultFrames}=           Convert To Integer    ${ResultFrames}
     ${IsThePageContainsFrames}=  Run Keyword And Ignore Error  Should Be Equal As Integers  ${ResultFrames}  0
     Log                        Verify the page does not contain frames: ${IsThePageContainsFrames[0]}  level=WARN
+
+Verify Visited and Unvisited Links Are Different
+    [Arguments]                ${Student}
+    ${CssFiles}=               OperatingSystem.List Files In Directory    ${Student}/style/    *.css    absolute=False
+    ${Length}=                 Get Length  ${CssFiles}
+    #${Length}=                 Convert To Integer    ${Length}
+    : FOR                      ${i}  IN RANGE  0  ${Length}
+    #\                          Log  ${CssFiles[${i}]}  level=WARN
+    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/style/${CssFiles[${i}]}
+    \                          ${Group1}  ${Group2}=
+    \                          ...  BuiltIn.Should Match Regexp  ${CurrentFile}  ${VisitedCssNode}
+    \                          ${Group3}  ${Group4}=
+    \                          ...  BuiltIn.Should Match Regexp  ${CurrentFile}  ${VisitedCssNode2}
+
+Check If The Images Has Alt Attribues
+    [Arguments]                ${ListOfPages}
+    ${Length}=                 Get Length  ${ListOfPages}
+    ${ResultFrames}=           Set Variable    0
+    ${AllImageList}=           Create List
+    : FOR                      ${i}  IN RANGE  0  ${Length}
+    #\                           Log  ${ListOfPages[${i}]}  level=WARN
+    \                          ${CurrentFile}=  OperatingSystem.Get File  ${Student}/${ListOfPages[${i}]}
+    \                          ${Group1}  ${Group2}=
+    \                          ...  Run Keyword And Ignore Error  BuiltIn.Should Match Regexp  ${CurrentFile}  ${GetImagesXpath}
+    \                          Append To List    ${AllImageList}    ${Group2}
+    Log                        ${AllImageList}
