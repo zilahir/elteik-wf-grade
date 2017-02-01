@@ -11,8 +11,8 @@ Library           Collections
 Library           XML
 Library           HttpLibrary.HTTP
 Library           color.py
-
-Resource                     variables.robot
+Library           CssLib/csslib.py
+Resource          variables.robot
 
 *** Variables ***
 
