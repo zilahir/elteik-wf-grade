@@ -11,4 +11,6 @@ ${CssFontSizeRegexp}           (font-size. ?)(\d{1,3})(px)(;)
 #${VisitedCssNode}               \n[^:]*:visited\\s*{\s*([^}]*)}
 #${VisitedCssNode2}               \n[^:]*a:hover\\s*{\s*([^}]*)}
 ${GetImagesXpath}              (<img.*>.*)
+${HtmlDeclarationRegex}        (<!)(.*)(>)
+${RedColor}=                   \#ff0000
 *** Keywords ***

@@ -15,3 +15,11 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     ${PageTitle}=              Get Title
     ${IsPageTitleOk}=          Run Keyword And Ignore Error  Should Be Equal As Strings    ${PageTitle}    ${STUDENT}  Az oldal <title> tag nem megfelelő!  false
     Log                        Check page title: ${IsPageTitleOk[0]}  level=WARN
+    ${Group1}  ${Group2}  ${Group3}  ${Group4}=
+    ...                       BuiltIn.Should Match Regexp        ${ExerciseFile}    ${HtmlDeclarationRegex}    msg=None    values=True
+    ${IsDoctypeOk}=           Run Keyword And Ignore Error  Should Be Equal As Strings  ${Group3}  DOCTYPE html
+    Log                       Check the doctype: ${IsDoctypeOk[0]}  level=WARN
+    ${IsClassHasRedProperty}=  IsCssClassHasKeyValuePair  ../${STUDENT}/exercise1.css  .red  color  ${RedColor}
+    ${RedColorResult}=         Set Variable If    '${IsClassHasRedProperty}'=='true'  PASS  FAIL
+    Log                       .red class text color ${RedColorResult}  level=WARN
+    [Teardown]                Run Keywords    Close All Browsers
