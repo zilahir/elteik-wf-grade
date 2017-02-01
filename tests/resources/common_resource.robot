@@ -10,7 +10,7 @@ Library           SSHLibrary
 Library           Collections
 Library           XML
 Library           HttpLibrary.HTTP
-Library           CssLib/csslib.py
+Library           ../CssLib/csslib.py
 Resource          variables.robot
 
 *** Variables ***

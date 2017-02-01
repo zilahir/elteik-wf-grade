@@ -1,5 +1,5 @@
 *** Settings ***
-Resource                     common_resource.robot
+Resource                     ../resources/common_resource.robot
 
 *** Variables ***
 
