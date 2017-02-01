@@ -22,4 +22,7 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     ${IsClassHasRedProperty}=  IsCssClassHasKeyValuePair  ../${STUDENT}/exercise1.css  .red  color  ${RedColor}
     ${RedColorResult}=         Set Variable If    '${IsClassHasRedProperty}'=='true'  PASS  FAIL
     Log                       .red class text color ${RedColorResult}  level=WARN
+    ${IsTextUnderlinedResult}=  IsCssClassHasKeyValuePair  ../${STUDENT}/exercise1.css  .welcome  text-decoration  underline
+    ${IsTextUnderlined}=         Set Variable If    '${IsTextUnderlinedResult}'=='true'  PASS  FAIL
+    Log                       .welcome class underline property ${IsTextUnderlined}  level=WARN
     [Teardown]                Run Keywords    Close All Browsers
