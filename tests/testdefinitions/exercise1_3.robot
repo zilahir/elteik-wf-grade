@@ -27,3 +27,4 @@ EXERCISE1 - HTML5 / CSS ALAPOK (3.)
     Log                       ${CssResultLength}  level=WARN
     Should Be Equal As Integers    ${CssResultLength}  0  Nem teljesült minden feltétel  false
     Capture Page Screenshot
+    [Teardown]                Run Keywords    Close All Browsers
