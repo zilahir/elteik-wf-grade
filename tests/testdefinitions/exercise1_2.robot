@@ -7,7 +7,7 @@ ${STUDENT}=       Y4ILM9
 ${Path}=          ../${STUDENT}/exercise_02.html
 
 *** Test Cases ***
-EXERCISE2 - HTML5 / CSS ALAPOK (1.)
+EXERCISE1 - HTML5 / CSS ALAPOK (2.)
     [Tags]                     owner-richard.zilahi  group=validating
     ${ExerciseFile}=           OperatingSystem.Get File    ${Path}    encoding=UTF-8    encoding_errors=strict
     Open Browser And Navigate To Site  ${Path}

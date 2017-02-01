@@ -12,5 +12,6 @@ ${CssFontSizeRegexp}           (font-size. ?)(\d{1,3})(px)(;)
 #${VisitedCssNode2}               \n[^:]*a:hover\\s*{\s*([^}]*)}
 ${GetImagesXpath}              (<img.*>.*)
 ${HtmlDeclarationRegex}        (<!)(.*)(>)
-${RedColor}=                   \#ff0000
+${RedColor}                    \#ff0000
+${PTagLocator}                 //p
 *** Keywords ***

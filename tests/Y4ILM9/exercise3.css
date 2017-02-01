@@ -1,0 +1,22 @@
+/* exericse 3.css */
+
+.balraigazit {
+  text-align: left;
+}
+
+.jobbraigazit {
+  text-align: right;
+}
+
+.kozepreigazit {
+  text-align: center;
+}
+
+.sorkizart {
+  text-align: justify;
+}
+
+.container {
+  width: 900px;
+  margin: 0 auto;
+}
