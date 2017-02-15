@@ -15,18 +15,23 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     Capture Page Screenshot
     ${PageTitle}=              Get Title
     ${IsPageTitleOk}=          Run Keyword And Ignore Error  Should Be Equal As Strings    ${PageTitle}    ${STUDENT}  Az oldal <title> tag nem megfelelő!  false
-    #Log                        Check page title: ${IsPageTitleOk[0]}  level=WARN
 
     ${Group1}  ${Group2}  ${Group3}  ${Group4}=
     ...                       BuiltIn.Should Match Regexp        ${ExerciseFile}    ${HtmlDeclarationRegex}    msg=None    values=True
     ${IsDoctypeOk}=           Run Keyword And Ignore Error  Should Be Equal As Strings  ${Group3}  DOCTYPE html
-    #Log                       Check the doctype: ${IsDoctypeOk[0]}  level=WARN
+
     ${IsClassHasRedProperty}=  IsCssClassHasKeyValuePair  exercise1.css  .red  color  ${RedColor}
     ${RedColorResult}=         Set Variable If    '${IsClassHasRedProperty}'=='true'  PASS  FAIL
-    #Log                       .red class text color ${RedColorResult}  level=WARN
+
     ${IsTextUnderlinedResult}=  IsCssClassHasKeyValuePair  exercise1.css  .welcome  text-decoration  underline
     ${IsTextUnderlined}=         Set Variable If    '${IsTextUnderlinedResult}'=='true'  PASS  FAIL
-    #Log                       .welcome class underline property ${IsTextUnderlined}  level=WARN
-    ${ResultJson}=             Create Dictionary  pagetitle=${IsPageTitleOk[0]}  doctype=${IsDoctypeOk[0]}  redclass=${RedColorResult}  underlinepropery=${IsTextUnderlined}
-    Log                       ${ResultJson}  level=WARN
+
+    ${json_string}=    catenate
+    ...  ***{
+    ...    "pagetitle": "${IsPageTitleOk[0]}",
+    ...    "doctype": ${IsDoctypeOk[0]},
+    ...    "redclass": "${RedColorResult}",
+    ...    "underlinepropery" : "${IsTextUnderlined}"
+    ...  }***
+    log to console            ${json_string}
     [Teardown]                Run Keywords    Close All Browsers
