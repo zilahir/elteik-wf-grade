@@ -28,5 +28,5 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     ${IsTextUnderlined}=         Set Variable If    '${IsTextUnderlinedResult}'=='true'  PASS  FAIL
     #Log                       .welcome class underline property ${IsTextUnderlined}  level=WARN
     ${ResultJson}=             Create Dictionary  pagetitle=${IsPageTitleOk[0]}  doctype=${IsDoctypeOk[0]}  redclass=${RedColorResult}  underlinepropery=${IsTextUnderlined}
-    Console log               ${ResultJson}  level=WARN
+    Log                       ${ResultJson}  level=WARN
     [Teardown]                Run Keywords    Close All Browsers
