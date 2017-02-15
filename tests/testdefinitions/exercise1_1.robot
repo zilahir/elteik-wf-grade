@@ -4,7 +4,8 @@ Resource                     ../resources/common_resource.robot
 *** Variables ***
 
 ${STUDENT}=       Y4ILM9
-${Path}=          ../${STUDENT}/exercise_01.html
+#${Path}=          ../${STUDENT}/exercise_01.html
+${Path}=          exercise_01.html
 
 *** Test Cases ***
 EXERCISE1 - HTML5 / CSS ALAPOK (1.)
