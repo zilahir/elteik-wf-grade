@@ -1,7 +1,7 @@
 *** Settings ***
 Library           String
 Library           Selenium2Library
-Library           XvfbRobot
+#Library           XvfbRobot
 Library           OperatingSystem
 Library           DateTime
 Library           BuiltIn
@@ -9,7 +9,7 @@ Library           String
 Library           SSHLibrary
 Library           Collections
 Library           XML
-Library           HttpLibrary.HTTP
+#Library           HttpLibrary.HTTP
 Library           ../CssLib/csslib.py
 Resource          variables.robot
 
