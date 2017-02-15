@@ -29,7 +29,7 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     ${json_string}=    catenate
     ...  ***{
     ...    "pagetitle": "${IsPageTitleOk[0]}",
-    ...    "doctype": ${IsDoctypeOk[0]},
+    ...    "doctype": "${IsDoctypeOk[0]}",
     ...    "redclass": "${RedColorResult}",
     ...    "underlinepropery" : "${IsTextUnderlined}"
     ...  }***
