@@ -20,10 +20,10 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     ...                       BuiltIn.Should Match Regexp        ${ExerciseFile}    ${HtmlDeclarationRegex}    msg=None    values=True
     ${IsDoctypeOk}=           Run Keyword And Ignore Error  Should Be Equal As Strings  ${Group3}  DOCTYPE html
     Log                       Check the doctype: ${IsDoctypeOk[0]}  level=WARN
-    ${IsClassHasRedProperty}=  IsCssClassHasKeyValuePair  ../${STUDENT}/exercise1.css  .red  color  ${RedColor}
+    ${IsClassHasRedProperty}=  IsCssClassHasKeyValuePair  exercise1.css  .red  color  ${RedColor}
     ${RedColorResult}=         Set Variable If    '${IsClassHasRedProperty}'=='true'  PASS  FAIL
     Log                       .red class text color ${RedColorResult}  level=WARN
-    ${IsTextUnderlinedResult}=  IsCssClassHasKeyValuePair  ../${STUDENT}/exercise1.css  .welcome  text-decoration  underline
+    ${IsTextUnderlinedResult}=  IsCssClassHasKeyValuePair  exercise1.css  .welcome  text-decoration  underline
     ${IsTextUnderlined}=         Set Variable If    '${IsTextUnderlinedResult}'=='true'  PASS  FAIL
     Log                       .welcome class underline property ${IsTextUnderlined}  level=WARN
     [Teardown]                Run Keywords    Close All Browsers
