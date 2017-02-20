@@ -34,7 +34,7 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     ...    "doctype": "${IsDoctypeOk[0]}",
     ...    "redclass": "${RedColorResult}",
     ...    "underlinepropery" : "${IsTextUnderlined}",
-    ...    "points" : "${FinalPoints}"
+    ...    "points" : "${FinalPoints}",
     ...    "exercise" : "1"
     ...  }***
     log to console            ${json_string}
