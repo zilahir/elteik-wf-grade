@@ -12,6 +12,7 @@ Library           XML
 #Library           HttpLibrary.HTTP
 Library           ../CssLib/csslib.py
 Resource          variables.robot
+Library           DatabaseLibrary
 
 *** Variables ***
 
