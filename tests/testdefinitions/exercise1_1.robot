@@ -11,7 +11,7 @@ ${Path}=          exercise_01.html
 EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     [Tags]                     owner-richard.zilahi  group=validating
     ${FinalPoints}=            Set Variable  0
-    ${FinalPoints}=            Convert To Number    ${FinalPoints}    base=None
+    ${FinalPoints}=            Convert To Number    ${FinalPoints}
     ${ExerciseFile}=           OperatingSystem.Get File    ${Path}    encoding=UTF-8    encoding_errors=strict
     Open Browser And Navigate To Site  ${Path}
     Capture Page Screenshot
