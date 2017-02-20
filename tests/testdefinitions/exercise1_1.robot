@@ -21,13 +21,13 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     ${Group1}  ${Group2}  ${Group3}  ${Group4}=
     ...                       BuiltIn.Should Match Regexp        ${ExerciseFile}    ${HtmlDeclarationRegex}    msg=None    values=True
     ${IsDoctypeOk}=           Run Keyword And Ignore Error  Should Be Equal As Strings  ${Group3}  DOCTYPE html
-    Run Keyword If            "${IsDoctypeOk[0]}" == "PASS"  ${FinalPoints}=  Evaluate    ${FinalPoints}+30
+    ${FinalPoints}=           Run Keyword If            "${IsDoctypeOk[0]}" == "PASS"  Evaluate    ${FinalPoints}+30
     ${IsClassHasRedProperty}=  IsCssClassHasKeyValuePair  exercise1.css  .red  color  ${RedColor}
     ${RedColorResult}=         Set Variable If    '${IsClassHasRedProperty}'=='true'  PASS  FAIL
-    Run Keyword If            "${RedColorResult}" == "PASS"  ${FinalPoints}=  Evaluate    ${FinalPoints}+30
+    ${FinalPoints}=           Run Keyword If            "${RedColorResult}" == "PASS"  Evaluate    ${FinalPoints}+30
     ${IsTextUnderlinedResult}=  IsCssClassHasKeyValuePair  exercise1.css  .welcome  text-decoration  underline
     ${IsTextUnderlined}=         Set Variable If    '${IsTextUnderlinedResult}'=='true'  PASS  FAIL
-    Run Keyword If            "${IsTextUnderlined}" == "PASS"  ${FinalPoints}=  Evaluate    ${FinalPoints}+30
+    ${FinalPoints}=           Run Keyword If            "${IsTextUnderlined}" == "PASS"  Evaluate    ${FinalPoints}+30
     ${json_string}=    catenate
     ...  ***{
     ...    "pagetitle": "${IsPageTitleOk[0]}",
