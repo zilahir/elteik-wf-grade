@@ -310,3 +310,6 @@ Check If The Images Has Alt Attribues
     ${FinalResultCount}=       Get Length  ${FinalResult}
     ${IsAllAltSet}=            Run Keyword And Ignore Error  Should Be True    '${FinalResultCount}'='0'
     Log                        Is all images' alt attribute properly set ${IsAllAltSet[0]}  level=WARN
+
+Add Test Results Into Db
+    Connect To Database       pymysql  web1framework  uxwTX2GXtq2Qb5HH  uxwTX2GXtq2Qb5HH  localhost  3306

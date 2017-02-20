@@ -34,4 +34,4 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     ...    "underlinepropery" : "${IsTextUnderlined}"
     ...  }***
     log to console            ${json_string}
-    [Teardown]                Run Keywords    Close All Browsers
+    [Teardown]                Run Keywords    Close All Browsers  Add Test Results Into Db
