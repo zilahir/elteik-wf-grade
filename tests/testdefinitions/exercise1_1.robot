@@ -35,7 +35,7 @@ EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     ...    "redclass": "${RedColorResult}",
     ...    "underlinepropery" : "${IsTextUnderlined}",
     ...    "points" : "${FinalPoints}"
-    ...    "exercise" : "1",
+    ...    "exercise" : "1"
     ...  }***
     log to console            ${json_string}
     [Teardown]                Run Keywords    Close All Browsers
