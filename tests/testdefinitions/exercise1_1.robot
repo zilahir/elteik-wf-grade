@@ -10,7 +10,7 @@ ${Path}=          exercise_01.html
 *** Test Cases ***
 EXERCISE1 - HTML5 / CSS ALAPOK (1.)
     [Tags]                     owner-richard.zilahi  group=validating
-    ${FinalPoints}=            0
+    ${FinalPoints}=            Set Variable  0
     ${ExerciseFile}=           OperatingSystem.Get File    ${Path}    encoding=UTF-8    encoding_errors=strict
     Open Browser And Navigate To Site  ${Path}
     Capture Page Screenshot
