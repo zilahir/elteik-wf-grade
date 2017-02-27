@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+ <html lang="hu">
+	<head>
+		<meta charset="utf-8">
+		<title>A legjobb internetes/webes témájú filmek - Űrlap</title>
+		<link href="css/alap.css" rel="stylesheet" type="text/css">
+		<link rel="icon" href="media/favicon.ico">
+	</head>
+	<body>
+<header>
+	<h1>A legjobb &lt;internetes/webes&gt; témájú filmek</h1>
+	<nav id="fomenu"><a href="index.html">Kezdőlap</a> | <b>Űrlap</b> </nav>
+	
+	
+</header>	
+<main>
+<h2>Saját kedvenc beküldése</h2>
+<p>Neked is van kedvenc filmed ebben a témában? Ha igen, kérlek töltsd ki az alábbi űrlapot.</p>
+
+<form action="mailto:gipszjakab@mailinator.com" method="post" enctype="text/plain">
+<fieldset>
+	<legend>A film adatai</legend>
+	<label for="cim1"><strong>Cím (magyarul)</strong></label><br>
+	<input type="text" name="magyarcim" id="cim1" size="60"><br>
+	<label for="cim2"><strong>Cím (angolul)</strong></label><br>
+	<input type="text" name="angolcim" id="cim2" size="60"><br>
+	<label for="imdb"><strong>IMDb webcím:</strong></label><br>
+    <input type="url" size="60" name="imdbcim" id="imdb" value="http://www.imdb.com/"><br>
+	<label for="osszefoglalas"><strong>A film cselekménye röviden</strong></label><br>
+	<textarea cols="60" rows="10" name="cselekmeny" id="osszefoglalas" placeholder="Röviden írd le a tartalmat, de ne spoilerezz!"></textarea>
+</fieldset>
+<fieldset>
+	<legend>Értékelés</legend>
+	<p>A Te értékelésed 5-ös skálán<br>
+      <input type="radio" name="ertekeles" id="v1" value="1">
+      <label for="v1">1</label>
+      <input type="radio" name="ertekeles" id="v2" value="2">
+      <label for="v2">2</label>
+      <input type="radio" name="ertekeles" id="v3" value="3">
+      <label for="v3">3</label>
+      <input type="radio" name="ertekeles" id="v4" value="4">
+      <label for="v4">4</label>
+	   <input type="radio" name="ertekeles" id="v5" value="5">
+      <label for="v5">5</label>
+    </p>
+	
+</fieldset>	
+<fieldset>
+	<legend>Az adataid</legend>
+	<label for="nev"><strong>Név</strong></label><br>
+	<input type="text" name="nev" id="nev" size="60"><br>
+	<label for="email"><strong>E-mail cím</strong></label><br>
+	<input type="email" name="email" id="email" size="60"><br>
+	<input type="checkbox" name="hirlevel" id="hirlevel" value="igen">
+	<label for="hirlevel">Fel szeretnék jelentkezni a filmes hírlevélre</label>
+	 
+</fieldset>
+<fieldset>
+	<legend>Adatok elküldése</legend>
+	<input type="submit" value="Elküld">
+	<input type="reset" value="Töröl">
+</fieldset>
+
+</form>
+
+<p>Emlékeztetőül, eddig ezek a filmek vannak a listámban:</p>
+	<nav>
+		<ol>
+			<li><a href="index.html#kozossegihalo"><span lang="en">Social Network</span> - A közösségi háló </a></li>
+			<li><a href="index.html#ano">A nő</a></li>
+			<li><a href="index.html#temegen">Te meg én és minden ismerősünk </a></li>
+			<li><a href="index.html#deepweb">Deep Web</a></li>
+		</ol>
+	</nav>	
+</main>
+<footer>
+<address>
+<p>Készítette: Gipsz Jakab (<a href="mailto:gipszjakab@mailinator.com)">gipszjakab@mailinator.com)</a><br>
+1117 Budapest, Nevenincs u. 17</address>
+
+</footer>
+
+	</body>
+</html>

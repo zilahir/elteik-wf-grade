@@ -314,3 +314,14 @@ Check If The Images Has Alt Attribues
 
 Add Test Results Into Db
     Connect To Database       pymysql  web1framework  uxwTX2GXtq2Qb5HH  uxwTX2GXtq2Qb5HH  localhost  3306
+
+
+#HARMADIK GYAKORLAT FELADAT
+
+Check Doctype Declaration
+    [Arguments]               ${File}
+    ${Group1}  ${Group2}  ${Group3}  ${Group4}=
+    ...                       BuiltIn.Should Match Regexp        ${File}    ${HtmlDeclarationRegex}    msg=None    values=True
+    ${IsDoctypeOk}=           Run Keyword And Ignore Error  Should Be Equal As Strings  ${Group3}  DOCTYPE html
+    ${Points}     =           Run Keyword If            "${IsDoctypeOk[0]}" == "PASS"  Set Variable  30
+    [Return]                  ${Points}                  
