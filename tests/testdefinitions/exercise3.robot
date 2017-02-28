@@ -13,9 +13,8 @@ ${CssPath}=       ../exercise-03/css/alap.css
     Open Browser And Navigate To Site  ${Path}
     ${IndexTitlePoints}=       Check Webpage Title  A legjobb internetes/webes témájú filmek - Kezdőlap
     ${DoctypePoints}=          Check Doctype Declaration  ${Path}
-    ${CountHeaderTag}=         Check Html Tag Exist  ${Path}  header  1
-    ${CountNavTag}=            Check Html Tag Exist  ${Path}  nav  1
-    #Check Page Links           valami  #TODO: FINISH THIS
+    ${CountHeaderTagPoints}=         Check Html Tag Exist  ${Path}  header  1
+    ${CountNavTagPoints}=            Check Html Tag Exist  ${Path}  nav  1
     ${CountMainTagPoints}=     Check Html Tag Exist  ${Path}  main  1
     ${CountFooterTagPoints}=   Check Html Tag Exist  ${Path}  footer  1
     ${CountArticleTag}=        Check Html Tag Exist  ${Path}  article  4
@@ -26,7 +25,7 @@ ${CssPath}=       ../exercise-03/css/alap.css
     ${AnoTitlePoints}=         Check For Element  xpath=//*[@id="ano"]
     ${TemegEnTitlePoints}=     Check For Element  xpath=//*[@id="temegen"]
     ${DeepwebTitlePoints}=     Check For Element  xpath=//*[@id="deepweb"]
-    ${CountPTags}=             Count Matching Xpath  //article/p  9
+    ${CountPTagsPoints}=       Count Matching Xpath  //article/p  9
 
     #CHECK CSS FILE
     ${CurrentPoints}=          Set Variable    0
@@ -53,5 +52,8 @@ ${CssPath}=       ../exercise-03/css/alap.css
     ${CheckFontStyleInQTags}=        Check Css Property  ${CssPath}  q  font-style  italic
     ${CheckTextAlignInFooterPNavTags}=  Check Css Property  ${CssPath}  footer p, nav#fomenu  text-align  center
     ${CheckTextAlignInThTags}=       Check Css Property  ${CssPath}  th  text-align  left
+
+    #${FinalPoints}=            Evaluate  ${IndexTitlePoints}
+    ${FinalPoints}=             CountFinalPoints
 
     [Teardown]                 Run Keywords  Close All Browsers

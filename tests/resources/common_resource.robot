@@ -13,6 +13,7 @@ Library           XML
 Library           ../CssLib/csslib.py
 Resource          variables.robot
 Library           DatabaseLibrary
+Library           varlist.py
 
 *** Variables ***
 
