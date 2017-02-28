@@ -366,3 +366,15 @@ Count Matching Xpath
      ${Result}=              Run Keyword And Ignore Error  Xpath Should Match X Times  ${Xpath}  ${Expected}
      ${Points}=              Run Keyword If            "${Result[0]}" == "PASS"  Set Variable  10
      [Return]                ${Points}
+
+Check Css Property
+     [Arguments]             ${File}  ${Where}  ${What}  ${Expected}  ${CurrentPoints}=${EMPTY}
+     ${Result}=              Run Keyword And Ignore Error  isCssClassHasKeyValuePair  ${File}  ${Where}  ${What}  ${Expected}
+     ${Points}=              Run Keyword If            "${Result[0]}" == "PASS"  Evaluate  ${CurrentPoints}+10
+     [Return]                ${Points}
+
+Check FontFamily
+     [Arguments]             ${File}  ${Where}  ${What}  ${Expected}  ${CurrentPoints}=${EMPTY}
+     ${Result}=              Run Keyword And Ignore Error  isCssClassHasKeyValuePair  ${File}  ${Where}  ${What}  ${Expected}
+     ${Points}=              Run Keyword If            "${Result[0]}" == "PASS"  Evaluate  ${CurrentPoints}+10
+     [Return]                ${Points}
