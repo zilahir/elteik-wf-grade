@@ -3,8 +3,8 @@ Resource                     ../resources/common_resource.robot
 
 *** Variables ***
 
-${Path}=          ../exercise-03/index.html
-${CssPath}=       ../exercise-03/css/alap.css
+${Path}=          exercises/exercise-03/index.html
+${CssPath}=       exercises/exercise-03/css/alap.css
 
 *** Test Cases ***
 3. GYAKORLATI FELADAT
@@ -55,5 +55,11 @@ ${CssPath}=       ../exercise-03/css/alap.css
 
     #${FinalPoints}=            Evaluate  ${IndexTitlePoints}
     ${FinalPoints}=             CountFinalPoints
+    ${json_string}=    catenate
+    ...  ***{
+    ...    "points" : "${FinalPoints}",
+    ...    "exercise" : "3"
+    ...  }***
+    log to console            ${json_string}
 
     [Teardown]                 Run Keywords  Close All Browsers
