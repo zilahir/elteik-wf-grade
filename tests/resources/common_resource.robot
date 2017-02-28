@@ -34,6 +34,12 @@ Check Pages Title Tag
     Log                        Is the page has correct <title> tags: ${PageHaseCorrectTitles[0]}  level=WARN
 
 
+Count Html Tag
+    [Arguments]                ${Page}  ${HtmlTag}  ${Expected}
+    ${ResultHeaderTag}=        Set Variable  0
+    ${CurrentCountHeader}      Get Count  ${Page}  ${Html}
+    [Return]                   ${CurrentCountHeader}
+
 Check Html 5 Tags
     [Arguments]                ${ListOfPages}
     ${Length}=                 Get Length  ${ListOfPages}
@@ -320,8 +326,43 @@ Add Test Results Into Db
 
 Check Doctype Declaration
     [Arguments]               ${File}
+    ${ExerciseFile}=          Get File    ${File}    encoding=UTF-8    encoding_errors=strict
     ${Group1}  ${Group2}  ${Group3}  ${Group4}=
-    ...                       BuiltIn.Should Match Regexp        ${File}    ${HtmlDeclarationRegex}    msg=None    values=True
+    ...                       BuiltIn.Should Match Regexp        ${ExerciseFile}    ${HtmlDeclarationRegex}    msg=None    values=True
     ${IsDoctypeOk}=           Run Keyword And Ignore Error  Should Be Equal As Strings  ${Group3}  DOCTYPE html
-    ${Points}     =           Run Keyword If            "${IsDoctypeOk[0]}" == "PASS"  Set Variable  30
-    [Return]                  ${Points}                  
+    ${Points}=                Run Keyword If            "${IsDoctypeOk[0]}" == "PASS"  Set Variable  30
+    [Return]                  ${Points}
+
+Check Webpage Title
+    [Arguments]              ${ExpectedTitle}
+    ${PageTitle}             Get Title
+    ${IsPageTitleOk}=        Run Keyword And Ignore Error  Should Be Equal As Strings  ${PageTitle}  ${ExpectedTitle}
+    ${Points}=                Run Keyword If            "${IsPageTitleOk[0]}" == "PASS"  Set Variable  10
+    [Return]                  ${Points}
+
+Check Html Tag Exist
+    [Arguments]               ${Page}  ${Tag}  ${Limit}
+    ${Count}=                 Set Variable  0
+    ${CurrentFile}=           OperatingSystem.Get File  ${Page}
+    ${CountHtmlTag}=          Get Count  ${CurrentFile}  <${Tag}
+    ${Points}=                Run Keyword If            ${CountHtmlTag} >= ${Limit}  Set Variable  10
+    [Return]                  ${Points}
+
+Check Page Links
+    [Arguments]              ${Expected}
+    Page Should Contain Element  //*[@id="fomenu"]/a
+
+Check For Element
+    [Arguments]              ${WhichElement}
+    ${IsElementOk}            Run Keyword And Ignore Error  Page Should Contain Element  ${WhichElement}
+    ${Points}=                Run Keyword If            "${IsElementOk[0]}" == "PASS"  Set Variable  10
+    [Return]                  ${Points}
+
+Check Trailer For Movie
+    [Arguments]              ${WhichMovie}
+
+Count Matching Xpath
+     [Arguments]             ${Xpath}  ${Expected}
+     ${Result}=              Run Keyword And Ignore Error  Xpath Should Match X Times  ${Xpath}  ${Expected}
+     ${Points}=              Run Keyword If            "${Result[0]}" == "PASS"  Set Variable  10
+     [Return]                ${Points}
