@@ -3,8 +3,8 @@ Resource                     ../resources/common_resource.robot
 
 *** Variables ***
 
-${Path}=          ../lecture_03/index.html
-${CssPath}=       ../lecture_03/css/alap.css
+${Path}=          ../exercise-03/index.html
+${CssPath}=       ../exercise-03/css/alap.css
 
 *** Test Cases ***
 3. GYAKORLATI FELADAT
